@@ -1,3 +1,15 @@
+;; chordpro-mode.el - Edit mode for ChordPro (Chordii) files
+;; Author          : Johan Vromans
+;; Created By      : Howard Ding, Fri Mar 15 23:16:52 2014
+;; Created On      : Mon Dec 14 14:57:36 2015
+;; Last Modified By: Johan Vromans
+;; Last Modified On: Mon Dec 14 15:01:09 2015
+;; Update Count    : 3
+;; Status          : OK
+
+;; This package was forked Mon Dec 14 14:57:36 2015
+;; from https://github.com/hading/chordpro-mode.git
+
 (require 'derived)
 (require 'dropdown-list nil t)
 
@@ -9,7 +21,8 @@
      ("\\({[^}]*}\\)" . font-lock-variable-name-face))))
 
 (defvar chordpro-file-encoding 'latin-1)
-       
+(defvar chordpro-hot-insert t)
+
 (define-derived-mode chordpro-mode text-mode "Chordpro"
   "Major mode for editing Chordpro files.
 Special commands:
@@ -212,6 +225,21 @@ the start and end of the chord."
   (interactive)
   (insert "{start-of-chorus}\n\n{end-of-chorus}\n")
   (search-backward "\n" nil nil 2))
-  
+
+;; Hotter version of insert-chord.
+;; Inserts starts with "[" and ends with "]".
+;; Behaves as typing normally, but you get the titlecase :).
+
+(defun chordpro-insert-chord-hot nil
+  "Prompt for and insert chord at point, performing some normalization."
+  (interactive)
+  (let ((keymap (copy-keymap minibuffer-local-map)))
+    (define-key keymap "]" 'exit-minibuffer)
+    (let ((chord (read-from-minibuffer "Chord: " "" keymap)))
+      (insert "[" (chordpro-normalize-chord chord) "]"))))
+
+(or chordpro-hot-insert
+    (define-key chordpro-mode-map "[" 'chordpro-insert-chord-hot))
+
 (provide 'chordpro)
 

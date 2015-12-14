@@ -3,8 +3,8 @@
 ## Introduction ##
 
 This is an emacs major mode, derived from text-mode, for editing files
-in the Chordpro format (see, for example,
-<http://www.vromans.org/johan/projects/Chordii/>).
+in the Chordpro format, see
+<http://www.chordii.org/> and <http://www.chordpro.org/>.
 
 It is currently somewhat crude, but it does simplify a few things and
 I do intend to keep adding any refinements that I find useful in my
@@ -43,7 +43,15 @@ installed they'll just do nothing.
 
 ### Keyboard ###
 
-Most of the keyboard commands use the Ctrl-c prefix.
+When you type a [ character, Emacs will prompt for a chord name. You
+can enter the chord in all lowercase, it will be automatically upcased
+if necessary. For convenience, minibuffer input can be terminated with
+a ] character.
+
+If this is too hot for you, set variable chordpro-hot-insert to nil
+before loading chordpro-mode.el
+
+Most of the other keyboard commands use the Ctrl-c prefix.
 
 * Ctrl-c i : Insert a chord at the point. You'll be prompted for the
   chord name in the minibuffer. The brackets will automatically be

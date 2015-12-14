@@ -6,6 +6,8 @@ This is an emacs major mode, derived from text-mode, for editing files
 in the Chordpro format, see
 <http://www.chordii.org/> and <http://www.chordpro.org/>.
 
+This is a fork of <https://github.com/hading/chordpro-mode.git>.
+
 It is currently somewhat crude, but it does simplify a few things and
 I do intend to keep adding any refinements that I find useful in my
 work with Chordpro files. The font-lock is based off a previously

@@ -7,6 +7,9 @@ in the Chordpro format, see
 <http://www.chordii.org/> and <http://www.chordpro.org/>.
 
 This is a fork of <https://github.com/hading/chordpro-mode.git>.
+It has been adjusted for the official ChordPro format as implemented
+by the reference implementation Chordii, see
+<http://www.chordii.org>.
 
 It is currently somewhat crude, but it does simplify a few things and
 I do intend to keep adding any refinements that I find useful in my
@@ -25,13 +28,14 @@ create an issue (or even better do it and send a pull request).
 Copy chordpro-mode.el into somewhere in your emacs load path (I put it
 in ~/.emacs.d).
 
-Then put something like this into your .emacs file (I use the .pro
-extension for such files):
+Then put something like this into your .emacs file (I use the .cho
+extension for such files; .pro would be an alternative but it is
+already in use):
 
-    (setq auto-mode-alist (cons '("\\.pro$" . chordpro-mode) auto-mode-alist))
+    (setq auto-mode-alist (cons '("\\.cho$" . chordpro-mode) auto-mode-alist))
     (autoload 'chordpro-mode "chordpro-mode")
 
-Now when you visit a .pro file you should automatically get
+Now when you visit a .cho file you should automatically get
 chordpro-mode. The file will automatically be saved in latin-1
 encoding (you can change this by setting the chordpro-file-encoding
 variable in your .emacs, but you probably shouldn't as Chordii

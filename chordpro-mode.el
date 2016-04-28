@@ -3,8 +3,8 @@
 ;; Created By      : Howard Ding, Fri Mar 15 23:16:52 2014
 ;; Created On      : Mon Dec 14 14:57:36 2015
 ;; Last Modified By: Johan Vromans
-;; Last Modified On: Mon Dec 14 15:01:09 2015
-;; Update Count    : 3
+;; Last Modified On: Thu Apr 28 13:12:29 2016
+;; Update Count    : 9
 ;; Status          : OK
 
 ;; This package was forked Mon Dec 14 14:57:36 2015
@@ -18,6 +18,7 @@
      ("^\\(#.*\\)" . font-lock-comment-face)
      ("\\({subtitle[^}]*}\\)" . font-lock-type-face)
      ("\\({title[^}]*}\\)" . font-lock-keyword-face)
+     ("\\({\\(composer\\|artist\\|album\\|capo\\|key\\|time\\|tempo\\)[^}]*}\\)" . font-lock-keyword-face)
      ("\\({[^}]*}\\)" . font-lock-variable-name-face))))
 
 (defvar chordpro-file-encoding 'latin-1)
@@ -223,7 +224,7 @@ the start and end of the chord."
 (defun chordpro-insert-chorus ()
   "Insert a chordpro chorus."
   (interactive)
-  (insert "{start-of-chorus}\n\n{end-of-chorus}\n")
+  (insert "{start_of_chorus}\n\n{end_of_chorus}\n")
   (search-backward "\n" nil nil 2))
 
 ;; Hotter version of insert-chord.
@@ -238,7 +239,7 @@ the start and end of the chord."
     (let ((chord (read-from-minibuffer "Chord: " "" keymap)))
       (insert "[" (chordpro-normalize-chord chord) "]"))))
 
-(or chordpro-hot-insert
+(and chordpro-hot-insert
     (define-key chordpro-mode-map "[" 'chordpro-insert-chord-hot))
 
 (provide 'chordpro)

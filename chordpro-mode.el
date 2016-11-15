@@ -3,8 +3,8 @@
 ;; Created By      : Howard Ding, Fri Mar 15 23:16:52 2014
 ;; Created On      : Mon Dec 14 14:57:36 2015
 ;; Last Modified By: Johan Vromans
-;; Last Modified On: Thu Apr 28 13:12:29 2016
-;; Update Count    : 9
+;; Last Modified On: Tue Nov 15 11:12:00 2016
+;; Update Count    : 12
 ;; Status          : OK
 
 ;; This package was forked Mon Dec 14 14:57:36 2015
@@ -113,7 +113,14 @@ already in the document."
 
 (defun chordpro-normalize-chord (chord)
   "Trim whitespace, capitalize first letter of chord."
-  (capitalize (replace-regexp-in-string "\\s " "" chord)))
+  ; This fails on chords like F#m, where the M is capitalized.
+  ; Quick hack to fix some.
+  (replace-regexp-in-string "#M" "#m"
+  (replace-regexp-in-string "#Dim" "#dim"
+  (replace-regexp-in-string "#Aug" "#aug"
+  (replace-regexp-in-string "#Sus" "#sus"
+			    (capitalize (replace-regexp-in-string
+					 "\\s " "" chord)))))))
   
 (defvar chordpro-chord-regexp
   "\\[\\([^][]*\\)\\]"
@@ -236,7 +243,8 @@ the start and end of the chord."
   (interactive)
   (let ((keymap (copy-keymap minibuffer-local-map)))
     (define-key keymap "]" 'exit-minibuffer)
-    (let ((chord (read-from-minibuffer "Chord: " "" keymap)))
+    (let ((history-delete-duplicates t)
+	  (chord (read-from-minibuffer "Chord: " "" keymap)))
       (insert "[" (chordpro-normalize-chord chord) "]"))))
 
 (and chordpro-hot-insert

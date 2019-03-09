@@ -68,25 +68,26 @@ Special commands:
   (interactive "@e\nMChord:")
   (insert "[" (chordpro-normalize-chord chord) "]"))
 
+(defun chordpro-select-buffer-chord ()
+  "Select chord from chords already in the buffer."
+  (let ((choices (chordpro-buffer-chord-list)))
+    (if (featurep 'dropdown-list)
+	(let ((selection (dropdown-list choices)))
+	  (when selection
+            (nth selection choices)))
+      (completing-read "Choose: " choices))))
+
 (defun chordpro-choose-insert-chord ()
   "Insert a chord chosen from a dropdown menu that contains all chords
 already in the document."
   (interactive)
-  (when (featurep 'dropdown-list)
-    (let* ((choices (chordpro-buffer-chord-list))
-           (selection (dropdown-list choices)))
-      (when selection
-        (chordpro-insert-chord (nth selection choices))))))
+  (chordpro-insert-chord (chordpro-select-buffer-chord)))
 
 (defun chordpro-mouse-choose-insert-chord (event)
   "Insert a chord chosen from a dropdown menu that contains all chords
 already in the document."
   (interactive "@e")
-    (when (featurep 'dropdown-list)
-    (let* ((choices (chordpro-buffer-chord-list))
-           (selection (dropdown-list choices)))
-      (when selection
-        (chordpro-insert-chord (nth selection choices))))))
+  (chordpro-insert-chord (chordpro-select-buffer-chord)))
 
 ;;;This could be done more efficiently, but for most usages
 ;;;it shouldn't be a problem to just scan the whole document each time
@@ -104,12 +105,9 @@ already in the document."
 (defun chordpro-choose-replace-current-chord ()
   "Replace the current chord with one chosen from a dropdown list"
   (interactive)
-  (when (featurep 'dropdown-list)
-    (let* ((choices (chordpro-buffer-chord-list))
-           (selection (dropdown-list choices)))
-      (when selection
-        (chordpro-delete-current-chord)
-        (chordpro-insert-chord (nth selection choices))))))
+  (let ((chord (chordpro-select-buffer-chord)))
+    (chordpro-delete-current-chord)
+    (chordpro-insert-chord chord)))
 
 (defun chordpro-normalize-chord (chord)
   "Trim whitespace, capitalize first letter of chord."

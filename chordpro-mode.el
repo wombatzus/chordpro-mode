@@ -250,5 +250,5 @@ the start and end of the chord."
 (and chordpro-hot-insert
     (define-key chordpro-mode-map "[" 'chordpro-insert-chord-hot))
 
-(provide 'chordpro)
-
+(provide 'chordpro-mode)
+;;; chordpro-mode.el ends here

@@ -78,7 +78,7 @@ Most of the other keyboard commands use the Ctrl-c prefix.
 * Ctrl-c x : Copy the next chord
 * Ctrl-Meta-n : Move current chord forward PREFIX chars. 
 * Ctrl-Meta-p : Move current chord backward PREFIX chars
-* Ctrl-c h : Insert a chordpro comment
+* Ctrl-c m : Insert a chordpro comment
 * Ctrl-c h : Insert a chordpro chorus
 * Ctrl-c t : Insert a chordpro title
 * Ctrl-c s : Insert a chordpro subtitle
